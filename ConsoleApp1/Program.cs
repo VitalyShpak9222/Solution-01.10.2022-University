@@ -178,7 +178,7 @@ namespace ConsoleApp1
                   "# #\n" +
                   " # "
         };
-        struct ded
+        struct Ded
         {
             public string name; 
             public string level_vorch; 
@@ -217,6 +217,21 @@ namespace ConsoleApp1
             quicksort(mass_array, pivot + 1, end);
         }
 
+        static void chelban(Ded ded, string[] mat)
+        {
+            for (int i = 0; i < mat.Count(); i++)
+            {
+                foreach (string m in ded.ded_phraz)
+                {
+                    if (m.Contains(mat[i]) == true)
+                    {
+                        ded.downtrodden += 1;
+                    }
+                }
+            }
+
+
+        }
         static void Main(string[] args)
         {
             Console.WriteLine("Задание №1\nТекст задания\nНаписать метод для решения квадратного уравнения");
@@ -330,8 +345,9 @@ namespace ConsoleApp1
             Console.WriteLine("\n\nЗадание №6\nТекст задания\n. Пользователь вводит числа. Если числа от 0 до 9, то необходимо в консоли нарисовать изображение цифры в виде символа #.Если число больше 9 или меньше 0, то консоль должна окраситься в красный цвет на 3 секунды и вывести сообщение об ошибке.Если пользователь ввёл не цифру, то программа должна выпасть в исключение.Программа завершает работу, если пользователь введёт слово: exit или закрыть(оба варианта должны сработать) - консоль закроется.");
             Random m = new Random();
             string[] name_of_ded = new[] { "Максим", "Илия", "Николай", "Михаил", "Вадим", "Данил", "Феодосий" };
-            string[] phraz = {"Гады 0","Шлюхи 0", "Мать твою за ногу 0","Едрит твою налево 0", "Ебучая скотина 1" };
-            ded[] dedi = new ded[5];
+            string[] phraz = {"Гады","Шлюхи", "Мать твою за ногу","Едрит твою налево", "Ебучая скотина","Сука","Еблан" };
+            string[] mati = { "Сука", "еблан", "ебучая" };
+            Ded[] dedi = new Ded[5];
             int f;
             for (int i = 0; i < dedi.Count(); i++)
             {
@@ -342,16 +358,10 @@ namespace ConsoleApp1
                 dedi[i].downtrodden = 0;     
                 for (int d = 0; d < f; d++)
                 {
-                    dedi[i].ded_phraz[d] = phraz[m.Next(0, phraz.Count())];
-                    dedi[i].downtrodden += Convert.ToInt32(dedi[i].ded_phraz[d][dedi[i].ded_phraz[d].Length - 1]);
+                    dedi[i].ded_phraz[d] = phraz[m.Next(0, phraz.Count())];;
                 }
             }
 
-            Console.WriteLine("\nЗадание №7\nТекст задания\n. Пользователь вводит числа. Если числа от 0 до 9, то необходимо в консоли нарисовать изображение цифры в виде символа #.Если число больше 9 или меньше 0, то консоль должна окраситься в красный цвет на 3 секунды и вывести сообщение об ошибке.Если пользователь ввёл не цифру, то программа должна выпасть в исключение.Программа завершает работу, если пользователь введёт слово: exit или закрыть(оба варианта должны сработать) - консоль закроется.");
-
-
-
-            Console.ReadKey();
         }
     }
 }
