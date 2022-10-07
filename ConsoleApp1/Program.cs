@@ -182,26 +182,40 @@ namespace ConsoleApp1
         {
             public string name; 
             public string level_vorch; 
-            public string[] phraz;
+            public string[] ded_phraz;
             public int downtrodden;
-
-            public void Print()
-            {
-                Random x = new Random();
-                Console.WriteLine($"Имя: {name}\nУровень ворчливости: {level_vorch}\nЛюбимые фразы ");
-                foreach ( string i in phraz)
-                {
-                    Console.Write(i + " ");
-                }
-                Console.WriteLine($"Количество фингалов: {downtrodden}");
-            }
         }
 
         public enum Level_ded
         {
             level_1 = 1, level_2 = 2, level_3 = 3 , level_4 = 4, level_5 = 5
         }
+        int partition(int[] mass_array, int vhod, int end)
+        {
+            int marker = vhod;
+            for (int i = vhod; i <= end; i++)
+            {
+                if (mass_array[i] <= mass_array[end])
+                {
+                    int temp = mass_array[marker];
+                    mass_array[marker] = mass_array[i];
+                    mass_array[i] = temp;
+                    marker += 1;
+                }
+            }
+            return marker - 1;
+        }
 
+        void quicksort(int[] mass_array, int Vhod, int end)
+        {
+            if (Vhod >= end)
+            {
+                return;
+            }
+            int pivot = partition(mass_array, Vhod, end);
+            quicksort(mass_array, Vhod, pivot - 1);
+            quicksort(mass_array, pivot + 1, end);
+        }
 
         static void Main(string[] args)
         {
@@ -316,36 +330,26 @@ namespace ConsoleApp1
             Console.WriteLine("\n\nЗадание №6\nТекст задания\n. Пользователь вводит числа. Если числа от 0 до 9, то необходимо в консоли нарисовать изображение цифры в виде символа #.Если число больше 9 или меньше 0, то консоль должна окраситься в красный цвет на 3 секунды и вывести сообщение об ошибке.Если пользователь ввёл не цифру, то программа должна выпасть в исключение.Программа завершает работу, если пользователь введёт слово: exit или закрыть(оба варианта должны сработать) - консоль закроется.");
             Random m = new Random();
             string[] name_of_ded = new[] { "Максим", "Илия", "Николай", "Михаил", "Вадим", "Данил", "Феодосий" };
-            string[][] phraz = { new string[] {"Гады", "0" }, new string[] {"Шлюхи", "0"}, new string[] { "Мать твою за ногу", "0"}, new string[] { "Едрит твою налево","0"}, new string[]{ "Ебучая скотина", "1"} };
+            string[] phraz = {"Гады 0","Шлюхи 0", "Мать твою за ногу 0","Едрит твою налево 0", "Ебучая скотина 1" };
             ded[] dedi = new ded[5];
-            int k;
-            int v = 0;
-            int g;
+            int f;
             for (int i = 0; i < dedi.Count(); i++)
             {
+                f = m.Next(0, phraz.Count());
+                dedi[i].ded_phraz = new string[f];
                 dedi[i].name = name_of_ded[m.Next(0, name_of_ded.Count())];
-                dedi[i].level_vorch = Convert.ToString((Level_ded)Enum.GetValues(typeof(Level_ded)).GetValue(m.Next(0, 5)));
-                dedi[i].downtrodden = 0;
-                k = m.Next(0, phraz.Count());
-                g = 0;
-                while (g < 2)
+                dedi[i].level_vorch = Convert.ToString(Enum.GetValues(typeof(Level_ded)).GetValue(m.Next(0, 5)));
+                dedi[i].downtrodden = 0;     
+                for (int d = 0; d < f; d++)
                 {
-                    foreach (string[] f in phraz)
-                    {
-                        if (v == k)
-                        {
-                            dedi[i].phraz.Append(Convert.ToString(f[0]));
-                            dedi[i].downtrodden += int.Parse(f[1]);
-                        }
-                        v++;
-                    }
-                    g++;
+                    dedi[i].ded_phraz[d] = phraz[m.Next(0, phraz.Count())];
+                    dedi[i].downtrodden += Convert.ToInt32(dedi[i].ded_phraz[d][dedi[i].ded_phraz[d].Length - 1]);
                 }
-                for (int h = 0; h < dedi[i].phraz.Count(); h++)
-                {
-                                        }
-
             }
+
+            Console.WriteLine("\nЗадание №7\nТекст задания\n. Пользователь вводит числа. Если числа от 0 до 9, то необходимо в консоли нарисовать изображение цифры в виде символа #.Если число больше 9 или меньше 0, то консоль должна окраситься в красный цвет на 3 секунды и вывести сообщение об ошибке.Если пользователь ввёл не цифру, то программа должна выпасть в исключение.Программа завершает работу, если пользователь введёт слово: exit или закрыть(оба варианта должны сработать) - консоль закроется.");
+
+
 
             Console.ReadKey();
         }
